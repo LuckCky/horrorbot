@@ -7,6 +7,26 @@ bot = telebot.TeleBot(token)
 def send_welcome(message):
     bot.reply_to(message, "Howdy, how are you doing?")
 
+@bot.message_handler(commands=['гороскоп', 'horoscope', 'horrorscope'])
+def send_horoscope(message):
+    reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
+    bot.reply_to(message, reply)
+
+@bot.message_handler(regexp='гороскоп')
+def send_horoscope(message):
+    reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
+    bot.reply_to(message, reply)
+
+@bot.message_handler(regexp='horoscope')
+def send_horoscope(message):
+    reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
+    bot.reply_to(message, reply)
+
+@bot.message_handler(regexp='horrorscope')
+def send_horoscope(message):
+    reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
+    bot.reply_to(message, reply)
+
 @bot.message_handler(func=lambda m: True)
 def echo_all(message):
     bot.reply_to(message, message.text)
