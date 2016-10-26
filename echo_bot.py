@@ -12,17 +12,17 @@ def send_horoscope(message):
     reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
     bot.reply_to(message, reply)
 
-@bot.message_handler(regexp='гороскоп')
+@bot.message_handler(regexp='ороскоп')
 def send_horoscope(message):
     reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
     bot.reply_to(message, reply)
 
-@bot.message_handler(regexp='horoscope')
+@bot.message_handler(regexp='oroscope')
 def send_horoscope(message):
     reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
     bot.reply_to(message, reply)
 
-@bot.message_handler(regexp='horrorscope')
+@bot.message_handler(regexp='orrorscope')
 def send_horoscope(message):
     reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
     bot.reply_to(message, reply)
