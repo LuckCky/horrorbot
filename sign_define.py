@@ -10,9 +10,7 @@ def sign_define(user_id, birth_date):
         return 'Рыбы'
     birth_date_day = int(birth_date[0])
     birth_date_month = int(birth_date[1])
-    birth_date = (birth_date_day, birth_date_month)
     for num, k in enumerate(signs):
-        start = k[1][0]
         end_month = k[1][1][1]
         end_day = k[1][1][0]
         if birth_date_month == end_month:
