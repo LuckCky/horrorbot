@@ -3,34 +3,36 @@
 # https://docs.python.org/3.5/library/shelve.html
 
 import shelve
+from datetime import timedelta, datetime
+
 import conf
 
-
-def add_message(message_id, user_id):
+def delete_old_prediction(date):
     db = shelve.open(conf.storage_name)
-    db[str(message_id)] = user_id
+    for delta in range(1, 8):
+        try:
+            date = date - timedelta(delta)
+            del db[date]
     db.close()
-
-# Temporally not using this to allow you to answer the same user multiple times
-# and/or use ANY message from certain user to write to him
-def delete_message(message_id):
-    db = shelve.open(conf.storage_name)
-    del db[str(message_id)]
-    db.close()
-
-def get_user_id(message_id):
-    try:
-        db = shelve.open(conf.storage_name)
-        uid = db[str(message_id)]
-        db.close()
-        return uid
-    except KeyError:
-        return None
 
 def set_user_sign(user_id, sign):
     db = shelve.open(conf.storage_name)
     db[str(user_id)] = sign
     db.close()
+
+def set_today_prediction(date, prediction):
+    db = shelve.open(conf.storage_name)
+    db[date] = prediction
+    db.close()
+
+def get_today_prediction(date):
+    try:
+        db = shelve.open(conf.storage_name)
+        prediction = db[date]
+        db.close()
+        return prediction
+    except KeyError:
+        return None
 
 def get_user_sign(user_id):
     try:
