@@ -6,13 +6,13 @@ from dbhelper import delete_old_prediction, set_today_prediction
 from dbhelper import get_today_prediction
 
 def line_conter():
-    with open('/texts.txt', 'r') as source:
+    with open('Murpys_laws.txt', 'r') as source:
         for num, line in enumerate(source):
             pass
     return num + 1
 
 def predictor():
-    lines_num = 22#line_conter()
+    lines_num = line_conter()
     prediction = {}
     lines_nums = random.sample(range(1, lines_num), 12)
     for i in range(0, 12):
@@ -23,7 +23,8 @@ def predictor():
 def read_prediction(sign):
     delete_old_prediction(datetime.now())
     prediction = get_today_prediction(datetime.now())
-    with open('/texts.txt', 'r') as source:
+    with open('Murpys_laws.txt', 'r') as source:
         for num, line in enumerate(source):
             if num == prediction[sign]:
-                return line
+                n = line.find('.')
+                return line[:n], line[n+2:].rstrip()

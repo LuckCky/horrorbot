@@ -1,5 +1,8 @@
 import telebot
+
 from conf import token
+from dbhelper import get_user_sign
+from prediction import read_prediction
 
 bot = telebot.TeleBot(token)
 
@@ -9,7 +12,13 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['гороскоп', 'horoscope', 'horrorscope'])
 def send_horoscope(message):
-    reply = 'ваш гороскоп на сегодня представляет {0}: {1}'
+    sign = get_user_sign(message.message_id)
+    if sign:
+        prediction = read_prediction(sign)
+        reply = 'сегодня ваш день будет определять {0}'.format(prediction[0]) \
+                + 'который гласит: {0}'.format(prediction[1])
+    else:
+        reply = 'Пожалуйста, напишите дату своего рождения в формате ДД/ММ или ДД.ММ'
     bot.reply_to(message, reply)
 
 @bot.message_handler(regexp='ороскоп')
