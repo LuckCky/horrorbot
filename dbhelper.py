@@ -13,6 +13,8 @@ def delete_old_prediction(date):
         try:
             date = date - timedelta(delta)
             del db[date]
+        except:
+            pass
     db.close()
 
 def set_user_sign(user_id, sign):
@@ -22,12 +24,14 @@ def set_user_sign(user_id, sign):
 
 def set_today_prediction(date, prediction):
     db = shelve.open(conf.storage_name)
+    date = date.strftime('%d/%m/%Y')
     db[date] = prediction
     db.close()
 
 def get_today_prediction(date):
     try:
         db = shelve.open(conf.storage_name)
+        date = date.strftime('%d/%m/%Y')
         prediction = db[date]
         db.close()
         return prediction
